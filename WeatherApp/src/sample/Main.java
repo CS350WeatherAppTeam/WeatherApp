@@ -19,10 +19,20 @@ public class Main extends Application {
 
     public static void main(String[] args) throws Exception {
 
+        ZipcodeList z = new ZipcodeList();
+        z.Build();
+
+
+
+
         Controller c = new Controller();
-       String coords = c.ZiptoCoords("75090");
+
+        Zipcode zip = z.Find("76712");
+     //  String coords = c.ZiptoCoords("75090");
 
       //  "33.604148,-96.550263"
+
+        String coords = zip.getLat() + "," + zip.getLog();
 
         c.CoordstoPoint(coords);
 

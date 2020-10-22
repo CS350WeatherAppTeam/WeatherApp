@@ -12,8 +12,11 @@ public class Controller {
 
     Weather[] wList;
     Weather wSelected;
-    String City;
-    String State;
+
+
+    Zipcode zip;
+
+
     String ID;
     String pointX;
     String pointY;
@@ -25,64 +28,7 @@ public class Controller {
     }
     
 
-    // Method taking a string input and turning it into two points used for weather forecasting
-    public String ZiptoCoords(String zip) throws Exception {
 
-        // test zip = 75090
-        // connecting to API
-        String ziplink = "https://www.zipcodeapi.com/rest/2A8hHaAX3ADLzR2AxmXFLO0nvQjZfCfMPPl4W7TgdXbGIRlbJaf1718RHKDw0mRO/info.json/" + zip + "/degrees";
-        URL zipUrl = new URL(ziplink);
-        HttpURLConnection zipHTTP = (HttpURLConnection) zipUrl.openConnection();
-        InputStream zipStream = zipHTTP.getInputStream();
-
-
-        // Setting up reader
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(zipStream, "UTF-8"));
-            String lineOData = br.readLine();
-
-            //Because the way the file is formated to having all of it's data in a single line,
-            //it needs to be manually split into different sections separated into commas and colons
-            String[] linesplit = lineOData.split(",|\\:");
-
-
-            //uncomment to see location of specific needed data
-            //  for(int i = 0; i < linesplit.length; i++){
-              //      System.out.println(linesplit[i]);
-               // }
-
-                String coords =  linesplit[3] + "," + linesplit[5];
-
-                setCity(linesplit[7]);
-                setState(linesplit[9]);
-
-
-                
-               return coords;
-
-        // close in case something goes wrong
-        } catch (IOException ex){
-            //Print to the error stream
-            //IOException ex will contain attempted file name
-            System.err.println("ERROR accessing :"+ex.getMessage());
-        } finally {
-            //Ok, we're done let's close this down.
-            try {
-                //br may have failed to init, check before closing
-                if(br != null){
-                    br.close();
-                }
-            } catch (IOException ex){
-                //We couldn't close the file?
-                //Ok, we're screwed bail.
-                ex.printStackTrace();
-                //Non-zero means we failed
-                System.exit(-1);
-            }
-        }
-        return null;
-    }
 
 
 
@@ -203,19 +149,19 @@ public class Controller {
         
                 wHold.setDay(wData[2].substring(25,wData[2].indexOf(",") - 1));
                 //printline checks it's saving it correctly
-                //  System.out.println(wHold.getDay());
+                  System.out.println(wHold.getDay());
 
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
-               // System.out.println(wHold.getTemp());
+                 System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[13].substring(37, wData[13].indexOf(",")));
-                // System.out.println(wHold.getForcast());
+                 System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
-                // System.out.println(wHold.getWindmph());
+                 System.out.println(wHold.getWindmph());
 
                 wHold.setWinddir(wData[10].substring(34, wData[10].indexOf(",") - 1));
-                // System.out.println(wHold.getWinddir());
+                 System.out.println(wHold.getWinddir());
 
                 wList[i] = wHold;
 
@@ -259,6 +205,8 @@ public class Controller {
         this.wList = wList;
     }
 
+
+
     public String getID() {
         return ID;
     }
@@ -281,22 +229,6 @@ public class Controller {
 
     public void setPointY(String pointY) {
         this.pointY = pointY;
-    }
-
-    public String getCity() {
-        return City;
-    }
-
-    public void setCity(String city) {
-        City = city;
-    }
-
-    public String getState() {
-        return State;
-    }
-
-    public void setState(String state) {
-        State = state;
     }
 
     public Weather getwSelected() {
