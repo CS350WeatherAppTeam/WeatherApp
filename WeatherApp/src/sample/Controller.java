@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 
@@ -37,8 +38,7 @@ public class Controller implements Initializable {
     @FXML
     private Text day;
 
-    @FXML
-    private Text[] daylist;
+
 
 
 
@@ -68,8 +68,8 @@ public class Controller implements Initializable {
 
         System.out.println("Building...");
 
-        daylist = new Text[8];
-        daylist[1].setText("Check");
+       // daylist = new Text[8];
+       // daylist[1].setText("Check");
 
         wList = new Weather[15];
 
@@ -107,7 +107,7 @@ public class Controller implements Initializable {
 
         Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
 
-        forecast.setText(wSelected.getFullForecast());
+        forecast.setText(wSelected.getForcast());
 
         selectedpic.setImage(new Image(wSelected.getIconLink()));
 
@@ -117,7 +117,11 @@ public class Controller implements Initializable {
     }
 
 
-    
+    @FXML
+    public void paneclick(MouseEvent mouseEvent){
+
+        System.out.println("PAne clicked");
+    }
 
 
 
@@ -245,8 +249,8 @@ public class Controller implements Initializable {
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
              //    System.out.println(wHold.getTemp());
 
-                wHold.setForcast(wData[13].substring(37, wData[13].indexOf(",")));
-               //  System.out.println(wHold.getForcast());
+                wHold.setForcast(wData[12].substring(34, wData[12].indexOf(",") - 1));
+                 System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
              //    System.out.println(wHold.getWindmph());
@@ -257,8 +261,9 @@ public class Controller implements Initializable {
                 wHold.setIconLink(wData[11].substring(25, wData[11].indexOf("\",")));
             //         System.out.println(wHold.getIconLink());
 
+
                 wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
-                    System.out.println(wHold.getFullForecast());
+                 //   System.out.println(wHold.getFullForecast());
 
 
                 wList[i] = wHold;
