@@ -8,35 +8,37 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    // random changee
+
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Parent root = FXMLLoader.load(getClass().getResource("weather.fxml"));
+        primaryStage.setTitle("Weather App");
+        primaryStage.setScene(new Scene(root, 500, 275));
         primaryStage.show();
     }
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
 
-        ZipcodeList z = new ZipcodeList();
-        z.Build();
-
-
+      //  ZipcodeList z = new ZipcodeList();
+    //    z.Build();
 
 
-        Controller c = new Controller();
 
-        Zipcode zip = z.Find("76712");
+
+       // Controller c = new Controller();
+
+       // Zipcode zip = z.Find("76712");
      //  String coords = c.ZiptoCoords("75090");
 
       //  "33.604148,-96.550263"
 
-        String coords = zip.getLat() + "," + zip.getLog();
+      //  String coords = zip.getLat() + "," + zip.getLog();
 
-        c.CoordstoPoint(coords);
+    //    c.CoordstoPoint(coords);
 
-        c.getForcast();
+  //      c.getForcast();
 
     //    String ziplink = "https://www.zipcodeapi.com/rest/j0OBr5GWb5guxkTB8hUPEynhnS1TGfLRBeAtMfsf6KpDRzfPQOtyb5XtxiCKuzo3/info.json/75090/degrees";
 
@@ -87,6 +89,6 @@ public class Main extends Application {
      //   }
 
      //   System.out.println("End");
-        // launch(args);
+        launch(args);
     }
 }

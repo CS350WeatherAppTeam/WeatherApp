@@ -1,5 +1,16 @@
 package sample;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,25 +18,105 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Controller {
+
+public class Controller implements Initializable {
+
+    @FXML
+    private TextField ziptextfield;
+
+    @FXML
+    private Text Location;
+    @FXML
+    private Text Temp;
+    @FXML
+    private Text forecast;
+    @FXML
+    private ImageView selectedpic;
+    @FXML
+    private Text day;
+
+    @FXML
+    private Text[] daylist;
+
+
+
+
 
     Weather[] wList;
     Weather wSelected;
 
 
     Zipcode zip;
-
+    ZipcodeList ziplist;
 
     String ID;
     String pointX;
     String pointY;
 
-    public Controller(){
 
-        wList = new Weather[14];
+
+
+
+
+
+// Build zipcode list, and set default zip
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println("Building...");
+
+        daylist = new Text[8];
+        daylist[1].setText("Check");
+
+        wList = new Weather[15];
+
+        ziplist = new ZipcodeList();
+        try {
+            ziplist.Build();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
+
+
+
+    // The full action helper method that uses the inputed zip code to convert to forecast
+
+        @FXML
+         public void ZiptoCast(ActionEvent actionEvent) throws Exception {
+
+        // get the correct zip and its information
+        String zipstring = ziptextfield.getText();
+        zip = ziplist.Find(zipstring);
+
+        // combine the zip's coords and get the geopoints
+        String coords = zip.getLat() + "," + zip.getLog();
+        CoordstoPoint(coords);
+
+        // collect the weekly forecast
+        getForcast();
+
+        // set up the new selected and weekly forecasts to the fxmls
+
+        Location.setText(zip.getCity() + ", " + zip.getState());
+
+        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
+
+        forecast.setText(wSelected.getFullForecast());
+
+        selectedpic.setImage(new Image(wSelected.getIconLink()));
+
+        day.setText(wSelected.getDay());
+
+
+    }
+
+
     
 
 
@@ -130,18 +221,18 @@ public class Controller {
             // geting rid of Periods line
             lineOData = br.readLine();
             String[] wData = new String[15];
-            Weather wHold = new Weather();
+
 
 
             //When the periods line is gone, each day's forecast neatly separates into 15 lines (including brackets)
             //Each day is chopped into it's own section and labeled into a Weather class that is put into the list
 
             //If you want to add more data, uncomment the printline to find the info within 15 lines and set it into a matching variable
-            for(int i = 0; i < wList.length; i++){
-
+            for(int i = 1; i < wList.length; i++){
+                Weather wHold = new Weather();
                 for(int j = 0; j < 15; j++) {
                     wData[j] = lineOData;
-               //     System.out.println(lineOData);
+                    System.out.println(lineOData);
                     lineOData = br.readLine();
                 }
 
@@ -149,24 +240,33 @@ public class Controller {
         
                 wHold.setDay(wData[2].substring(25,wData[2].indexOf(",") - 1));
                 //printline checks it's saving it correctly
-                  System.out.println(wHold.getDay());
+               //   System.out.println(wHold.getDay());
 
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
-                 System.out.println(wHold.getTemp());
+             //    System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[13].substring(37, wData[13].indexOf(",")));
-                 System.out.println(wHold.getForcast());
+               //  System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
-                 System.out.println(wHold.getWindmph());
+             //    System.out.println(wHold.getWindmph());
 
                 wHold.setWinddir(wData[10].substring(34, wData[10].indexOf(",") - 1));
-                 System.out.println(wHold.getWinddir());
+            //     System.out.println(wHold.getWinddir());
+
+                wHold.setIconLink(wData[11].substring(25, wData[11].indexOf("\",")));
+            //         System.out.println(wHold.getIconLink());
+
+                wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
+                    System.out.println(wHold.getFullForecast());
+
 
                 wList[i] = wHold;
 
 
             }
+
+            wSelected = wList[1];
 
 
         // closing file if something goes wrong
@@ -189,13 +289,10 @@ public class Controller {
                 System.exit(-1);
             }
         }
-
-
-
-
-
-
     }
+
+
+
 
     public Weather[] getwList() {
         return wList;
@@ -204,8 +301,6 @@ public class Controller {
     public void setwList(Weather[] wList) {
         this.wList = wList;
     }
-
-
 
     public String getID() {
         return ID;
@@ -238,4 +333,12 @@ public class Controller {
     public void setwSelected(Weather wSelected) {
         this.wSelected = wSelected;
     }
+
+
+
+
+
+
+
+
 }
