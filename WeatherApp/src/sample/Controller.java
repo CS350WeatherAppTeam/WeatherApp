@@ -10,14 +10,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,15 +25,37 @@ public class Controller implements Initializable {
     private TextField ziptextfield;
 
     @FXML
-    private Text Location;
+    private Text sLocation;
     @FXML
-    private Text Temp;
+    private Text sTemp;
+
     @FXML
-    private Text forecast;
+    private Text sForecast;
+
     @FXML
-    private ImageView selectedpic;
+    private ImageView sPic;
+
     @FXML
-    private Text day;
+    private Text sDay;
+
+    @FXML
+    private Text temp1;
+    @FXML
+    private ImageView pic1;
+    @FXML
+    private Text day1;
+
+
+
+    @FXML
+    private Text temp2;
+
+    @FXML
+    private Text fdate;
+
+    String date;
+
+
 
 
 
@@ -54,6 +73,9 @@ public class Controller implements Initializable {
     String ID;
     String pointX;
     String pointY;
+
+
+
 
 
 
@@ -103,59 +125,52 @@ public class Controller implements Initializable {
 
         // set up the new selected and weekly forecasts to the fxmls
 
-        Location.setText(zip.getCity() + ", " + zip.getState());
-
-        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
-
-        forecast.setText(wSelected.getForcast());
-
-        selectedpic.setImage(new Image(wSelected.getIconLink()));
-
-        day.setText(wSelected.getDay());
+        sSetup();
+        setup1(1);
 
 
     }
+
+
+    public void sSetup(){
+
+        sLocation.setText(zip.getCity() + ", " + zip.getState());
+
+        sTemp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
+
+        sForecast.setText(wSelected.getForcast());
+
+        sPic.setImage(new Image(wSelected.getIconLink()));
+
+        sDay.setText(wSelected.getDay());
+
+
+
+
+    }
+
+    public void setup1( int i){
+
+        temp1.setText(wList[i].getTemp() + "F");
+        day1.setText(wList[i].getDay());
+        pic1.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
+
+
 
 
     @FXML
-    public void paneclick(MouseEvent mouseEvent){
+    public void paneclick1(MouseEvent mouseEvent){
 
-//        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
-//
-//        forecast.setText(wSelected.getForcast());
-//
-//        selectedpic.setImage(new Image(wSelected.getIconLink()));
-
-        System.out.println("Pane clicked");
-    }
-
-
-    @FXML
-    public void ZiptoCastWeekly(ActionEvent actionEvent) throws Exception {
-
-        // get the correct zip and its information
-        String zipstring = ziptextfield.getText();
-        zip = ziplist.Find(zipstring);
-
-        // combine the zip's coords and get the geopoints
-        String coords = zip.getLat() + "," + zip.getLog();
-        CoordstoPoint(coords);
-
-        // collect the weekly forecast
-        getForcast();
-
-        // set up the new selected and weekly forecasts to the fxmls
-
-        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
-
-        forecast.setText(wSelected.getForcast());
-
-        selectedpic.setImage(new Image(wSelected.getIconLink()));
-
-        day.setText(wSelected.getDay());
-
+        sDay.setText(wList[1].getDay());
+        sTemp.setText(wList[1].getTemp() + " F / " + (Integer.parseInt(wList[1].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[1].getForcast()));
+        sPic.setImage(new Image(wList[1].getIconLink()));
 
     }
+
 
 
 
@@ -283,7 +298,7 @@ public class Controller implements Initializable {
              //    System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[12].substring(34, wData[12].indexOf(",") - 1));
-                 System.out.println(wHold.getForcast());
+             //    System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
              //    System.out.println(wHold.getWindmph());
@@ -298,7 +313,11 @@ public class Controller implements Initializable {
                 wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
                  //   System.out.println(wHold.getFullForecast());
 
+                if(i == 1){
+                date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
 
+                System.out.println(date);
+                };
                 wList[i] = wHold;
 
 
