@@ -24,7 +24,7 @@ public class ZipcodeList {
 
         }
 
-        Path noPath = Paths.get("src/us-zip-code-latitude-and-longitude.csv");
+        Path noPath = Paths.get("us-zip-code-latitude-and-longitude.csv");
         File simpleData = noPath.toFile();
 
         FileReader fr = null;

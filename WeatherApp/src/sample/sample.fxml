@@ -1,9 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="sample.Controller">
-
+<GridPane alignment="center" hgap="10" prefHeight="400.0" prefWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0">
+         <center>
+            <GridPane minHeight="250.0" minWidth="300.0" prefHeight="130.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Text fx:id="Location" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Text fx:id="forecast" strokeType="OUTSIDE" strokeWidth="0.0" text="Day" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Text fx:id="Temp" strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Text fx:id="day" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" wrappingWidth="65.109375" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <ImageView fx:id="selectedpic" fitHeight="86.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </center>
+         <bottom>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane onMouseClicked="#paneclick">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                        <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+                   <GridPane onMouseClicked="#paneclick">
+                       <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                       <children>
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Status" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Temp" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.columnIndex="1" />
+                           <ImageView fitHeight="35.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                       </children>
+                   </GridPane>
+               </children></HBox>
+         </bottom>
+         <top>
+            <GridPane prefHeight="42.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Zip Code: " />
+                        <TextField fx:id="ziptextfield" onAction="#ZiptoCast" text="75090" />
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" text="Switch Mode" />
+               </children>
+            </GridPane>
+         </top></BorderPane>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
 </GridPane>

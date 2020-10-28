@@ -120,9 +120,42 @@ public class Controller implements Initializable {
     @FXML
     public void paneclick(MouseEvent mouseEvent){
 
-        System.out.println("PAne clicked");
+//        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
+//
+//        forecast.setText(wSelected.getForcast());
+//
+//        selectedpic.setImage(new Image(wSelected.getIconLink()));
+
+        System.out.println("Pane clicked");
     }
 
+
+    @FXML
+    public void ZiptoCastWeekly(ActionEvent actionEvent) throws Exception {
+
+        // get the correct zip and its information
+        String zipstring = ziptextfield.getText();
+        zip = ziplist.Find(zipstring);
+
+        // combine the zip's coords and get the geopoints
+        String coords = zip.getLat() + "," + zip.getLog();
+        CoordstoPoint(coords);
+
+        // collect the weekly forecast
+        getForcast();
+
+        // set up the new selected and weekly forecasts to the fxmls
+
+        Temp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
+
+        forecast.setText(wSelected.getForcast());
+
+        selectedpic.setImage(new Image(wSelected.getIconLink()));
+
+        day.setText(wSelected.getDay());
+
+
+    }
 
 
 
