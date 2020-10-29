@@ -9,7 +9,23 @@ public class Weather {
     String Forecast;
     String fullForecast;
     String iconLink;
+    int number;
 
+    public String getForecast() {
+        return Forecast;
+    }
+
+    public void setForecast(String forecast) {
+        Forecast = forecast;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public String getIconLink() {
         return iconLink;
