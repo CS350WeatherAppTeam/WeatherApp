@@ -41,14 +41,50 @@ public class Controller implements Initializable {
     @FXML
     private Text temp1;
     @FXML
+    private Text temp2;
+    @FXML
+    private Text temp3;
+    @FXML
+    private Text temp4;
+    @FXML
+    private Text temp5;
+    @FXML
+    private Text temp6;
+    @FXML
+    private Text temp7;
+
+
+    @FXML
     private ImageView pic1;
     @FXML
-    private Text day1;
-
+    private ImageView pic2;
+    @FXML
+    private ImageView pic3;
+    @FXML
+    private ImageView pic4;
+    @FXML
+    private ImageView pic5;
+    @FXML
+    private ImageView pic6;
+    @FXML
+    private ImageView pic7;
 
 
     @FXML
-    private Text temp2;
+    private Text day1;
+    @FXML
+    private Text day2;
+    @FXML
+    private Text day3;
+    @FXML
+    private Text day4;
+    @FXML
+    private Text day5;
+    @FXML
+    private Text day6;
+    @FXML
+    private Text day7;
+
 
     @FXML
     private Text fdate;
@@ -90,8 +126,8 @@ public class Controller implements Initializable {
 
         System.out.println("Building...");
 
-       // daylist = new Text[8];
-       // daylist[1].setText("Check");
+        // daylist = new Text[8];
+        // daylist[1].setText("Check");
 
         wList = new Weather[15];
 
@@ -109,8 +145,8 @@ public class Controller implements Initializable {
 
     // The full action helper method that uses the inputed zip code to convert to forecast
 
-        @FXML
-         public void ZiptoCast(ActionEvent actionEvent) throws Exception {
+    @FXML
+    public void ZiptoCast(ActionEvent actionEvent) throws Exception {
 
         // get the correct zip and its information
         String zipstring = ziptextfield.getText();
@@ -127,7 +163,12 @@ public class Controller implements Initializable {
 
         sSetup();
         setup1(1);
-
+        setup2(3);
+        setup3(5);
+        setup4(7);
+        setup5(9);
+        setup6(11);
+        setup7(13);
 
     }
 
@@ -158,20 +199,129 @@ public class Controller implements Initializable {
 
     }
 
+    public void setup2( int i){
+
+        temp2.setText(wList[i].getTemp() + "F");
+        day2.setText(wList[i].getDay());
+        pic2.setImage((new Image(wList[1].getIconLink())));
 
 
+    }
+
+    public void setup3( int i){
+
+        temp3.setText(wList[i].getTemp() + "F");
+        day3.setText(wList[i].getDay());
+        pic3.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
+
+    public void setup4( int i){
+
+        temp4.setText(wList[i].getTemp() + "F");
+        day4.setText(wList[i].getDay());
+        pic4.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
+
+    public void setup5( int i){
+
+        temp5.setText(wList[i].getTemp() + "F");
+        day5.setText(wList[i].getDay());
+        pic5.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
+
+    public void setup6( int i){
+
+        temp6.setText(wList[i].getTemp() + "F");
+        day6.setText(wList[i].getDay());
+        pic6.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
+
+    public void setup7( int i){
+
+        temp7.setText(wList[i].getTemp() + "F");
+        day7.setText(wList[i].getDay());
+        pic7.setImage((new Image(wList[1].getIconLink())));
+
+
+    }
 
     @FXML
     public void paneclick1(MouseEvent mouseEvent){
 
-        sDay.setText(wList[1].getDay());
-        sTemp.setText(wList[1].getTemp() + " F / " + (Integer.parseInt(wList[1].getTemp()) - 32) + " C" );
+        sDay.setText(day1.getText());
+        sTemp.setText(temp1.getText() + " / " + (Integer.parseInt(wList[1].getTemp()) - 32) + " C" );
         sForecast.setText((wList[1].getForcast()));
-        sPic.setImage(new Image(wList[1].getIconLink()));
+        sPic.setImage(pic1.getImage());
 
     }
 
+    @FXML
+    public void paneclick2(MouseEvent mouseEvent){
 
+        sDay.setText(day2.getText());
+        sTemp.setText(temp2.getText() + " / " + (Integer.parseInt(wList[3].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[3].getForcast()));
+        sPic.setImage(pic2.getImage());
+
+    }
+
+    @FXML
+    public void paneclick3(MouseEvent mouseEvent){
+
+        sDay.setText(day3.getText());
+        sTemp.setText(temp3.getText() + " / " + (Integer.parseInt(wList[5].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[5].getForcast()));
+        sPic.setImage(pic3.getImage());
+
+    }
+
+    @FXML
+    public void paneclick4(MouseEvent mouseEvent){
+
+        sDay.setText(day4.getText());
+        sTemp.setText(temp4.getText() + " / " + (Integer.parseInt(wList[7].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[7].getForcast()));
+        sPic.setImage(pic4.getImage());
+
+    }
+
+    @FXML
+    public void paneclick5(MouseEvent mouseEvent){
+
+        sDay.setText(day5.getText());
+        sTemp.setText(temp5.getText() + " / " + (Integer.parseInt(wList[9].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[9].getForcast()));
+        sPic.setImage(pic5.getImage());
+
+    }
+
+    @FXML
+    public void paneclick6(MouseEvent mouseEvent){
+
+        sDay.setText(day6.getText());
+        sTemp.setText(temp6.getText() + " / " + (Integer.parseInt(wList[11].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[11].getForcast()));
+        sPic.setImage(pic6.getImage());
+
+    }
+
+    @FXML
+    public void paneclick7(MouseEvent mouseEvent){
+
+        sDay.setText(day7.getText());
+        sTemp.setText(temp7.getText() + " / " + (Integer.parseInt(wList[13].getTemp()) - 32) + " C" );
+        sForecast.setText((wList[13].getForcast()));
+        sPic.setImage(pic7.getImage());
+
+    }
 
 
 
@@ -213,13 +363,13 @@ public class Controller implements Initializable {
 
             // setting ID, X and Y points
             setID(splitline[IDpoint].substring(19,22));
-         //  System.out.println(getID());
+            //  System.out.println(getID());
 
             setPointX(splitline[Xpoint].substring(17, splitline[Xpoint].indexOf(",")));
-         //   System.out.println(getPointX());
+            //   System.out.println(getPointX());
 
             setPointY(splitline[Ypoint].substring(17, splitline[Ypoint].indexOf(",")));
-          //  System.out.println(getPointY());
+            //  System.out.println(getPointY());
 
 
             // Closing file if something goes wrong
@@ -289,34 +439,34 @@ public class Controller implements Initializable {
                 }
 
                 //saving data
-        
+
                 wHold.setDay(wData[2].substring(25,wData[2].indexOf(",") - 1));
                 //printline checks it's saving it correctly
-               //   System.out.println(wHold.getDay());
+                //   System.out.println(wHold.getDay());
 
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
-             //    System.out.println(wHold.getTemp());
+                //    System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[12].substring(34, wData[12].indexOf(",") - 1));
-             //    System.out.println(wHold.getForcast());
+                //    System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
-             //    System.out.println(wHold.getWindmph());
+                //    System.out.println(wHold.getWindmph());
 
                 wHold.setWinddir(wData[10].substring(34, wData[10].indexOf(",") - 1));
-            //     System.out.println(wHold.getWinddir());
+                //     System.out.println(wHold.getWinddir());
 
                 wHold.setIconLink(wData[11].substring(25, wData[11].indexOf("\",")));
-            //         System.out.println(wHold.getIconLink());
+                //         System.out.println(wHold.getIconLink());
 
 
                 wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
-                 //   System.out.println(wHold.getFullForecast());
+                //   System.out.println(wHold.getFullForecast());
 
                 if(i == 1){
-                date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
+                    date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
 
-                System.out.println(date);
+                    System.out.println(date);
                 };
                 wList[i] = wHold;
 
@@ -326,7 +476,7 @@ public class Controller implements Initializable {
             wSelected = wList[1];
 
 
-        // closing file if something goes wrong
+            // closing file if something goes wrong
         } catch (IOException ex){
             //Print to the error stream
             //IOException ex will contain attempted file name
