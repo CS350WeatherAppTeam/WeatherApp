@@ -200,7 +200,10 @@ public class Controller implements Initializable {
 
         sLocation.setText(zip.getCity() + ", " + zip.getState());
 
-        sTemp.setText(wSelected.getTemp() + "F / " + ((Integer.parseInt(wSelected.getTemp()) - 32)) + "C");
+        Double c = ((Integer.parseInt(wSelected.getTemp()) - 32)) * .55;
+        long ce = Math.round(c);
+
+        sTemp.setText(wSelected.getTemp() + "F / " + ce + "C");
 
         sForecast.setText(wSelected.getForcast());
 
@@ -280,7 +283,7 @@ public class Controller implements Initializable {
     public void paneclick1(MouseEvent mouseEvent){
 
         sDay.setText(day1.getText());
-        sTemp.setText(temp1.getText() + " / " + (Integer.parseInt(wList[1].getTemp()) - 32) + " C" );
+        sTemp.setText(temp1.getText() + " / " + FConvert(temp1) + "C" );
         sForecast.setText((wList[1].getForcast()));
         sPic.setImage(pic1.getImage());
 
@@ -290,7 +293,7 @@ public class Controller implements Initializable {
     public void paneclick2(MouseEvent mouseEvent){
 
         sDay.setText(day2.getText());
-        sTemp.setText(temp2.getText() + " / " + (Integer.parseInt(wList[3].getTemp()) - 32) + " C" );
+        sTemp.setText(temp2.getText() + " / " + FConvert(temp2) + "C" );
         sForecast.setText((wList[3].getForcast()));
         sPic.setImage(pic2.getImage());
 
@@ -300,7 +303,7 @@ public class Controller implements Initializable {
     public void paneclick3(MouseEvent mouseEvent){
 
         sDay.setText(day3.getText());
-        sTemp.setText(temp3.getText() + " / " + (Integer.parseInt(wList[5].getTemp()) - 32) + " C" );
+        sTemp.setText(temp3.getText() + " / " + FConvert(temp3) + "C" );
         sForecast.setText((wList[5].getForcast()));
         sPic.setImage(pic3.getImage());
 
@@ -310,7 +313,7 @@ public class Controller implements Initializable {
     public void paneclick4(MouseEvent mouseEvent){
 
         sDay.setText(day4.getText());
-        sTemp.setText(temp4.getText() + " / " + (Integer.parseInt(wList[7].getTemp()) - 32) + " C" );
+        sTemp.setText(temp4.getText() + " / " + FConvert(temp4) + "C" );
         sForecast.setText((wList[7].getForcast()));
         sPic.setImage(pic4.getImage());
 
@@ -320,7 +323,7 @@ public class Controller implements Initializable {
     public void paneclick5(MouseEvent mouseEvent){
 
         sDay.setText(day5.getText());
-        sTemp.setText(temp5.getText() + " / " + (Integer.parseInt(wList[9].getTemp()) - 32) + " C" );
+        sTemp.setText(temp5.getText() + " / " + FConvert(temp5) + "C" );
         sForecast.setText((wList[9].getForcast()));
         sPic.setImage(pic5.getImage());
 
@@ -330,7 +333,7 @@ public class Controller implements Initializable {
     public void paneclick6(MouseEvent mouseEvent){
 
         sDay.setText(day6.getText());
-        sTemp.setText(temp6.getText() + " / " + (Integer.parseInt(wList[11].getTemp()) - 32) + " C" );
+        sTemp.setText(temp6.getText() + " / " + FConvert(temp6) + "C" );
         sForecast.setText((wList[11].getForcast()));
         sPic.setImage(pic6.getImage());
 
@@ -340,12 +343,26 @@ public class Controller implements Initializable {
     public void paneclick7(MouseEvent mouseEvent){
 
         sDay.setText(day7.getText());
-        sTemp.setText(temp7.getText() + " / " + (Integer.parseInt(wList[13].getTemp()) - 32) + " C" );
+        sTemp.setText(temp7.getText() + " / " + FConvert(temp1) + "C" );
         sForecast.setText((wList[13].getForcast()));
         sPic.setImage(pic7.getImage());
 
     }
 
+    public String FConvert(Text temp){
+
+        Double celsius  = (Double.parseDouble(temp.getText().substring(0,temp.getText().length()-1)) - 32) * .55;
+
+        Long ce = Math.round(celsius);
+
+
+        String c = "" + ce;
+
+        return c;
+
+
+
+    }
 
 
 
