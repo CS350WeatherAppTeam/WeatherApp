@@ -3,11 +3,19 @@ package sample;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 
@@ -17,16 +25,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 
 public class Controller implements Initializable {
+
+
+
+    Color darktext = Color.BLACK;
+    Color lighttext = Color.SNOW;
+
+    String darkback = "black";
+    String lightback = "snow";
+
+    @FXML
+    private BorderPane mainpane;
 
     @FXML
     private TextField ziptextfield;
 
     @FXML
     private ToggleButton switchtime;
+
+    @FXML
+    private VBox weekbox;
+
+
 
     @FXML
     private Text sLocation;
@@ -39,9 +65,7 @@ public class Controller implements Initializable {
     @FXML
     private Text sDay;
 
-
-
-
+  
     @FXML
     private Text temp1;
     @FXML
@@ -89,13 +113,29 @@ public class Controller implements Initializable {
     @FXML
     private Text day7;
 
+    private String cast1;
+    private String cast2;
+    private String cast3;
+    private String cast4;
+    private String cast5;
+    private String cast6;
+    private String cast7;
+
+    @FXML
+    private Circle c1;
 
 
+
+    @FXML
+    private DialogPane dp;
 
 
 
     @FXML
     private Text fdate;
+
+    @FXML
+    private Text enterziptext;
 
     String date;
     int time;
@@ -135,8 +175,12 @@ public class Controller implements Initializable {
 
         System.out.println("Building...");
 
-        // daylist = new Text[8];
-        // daylist[1].setText("Check");
+
+
+
+
+       // daylist = new Text[8];
+       // daylist[1].setText("Check");
 
         wList = new Weather[15];
 
@@ -154,218 +198,220 @@ public class Controller implements Initializable {
         }
 
 
+
+
+  //      BackgroundAnimation();
+
     }
 
 
 
     // The full action helper method that uses the inputed zip code to convert to forecast
 
-    @FXML
-    public void ZiptoCast(ActionEvent actionEvent) throws Exception {
+        @FXML
+         public void ZiptoCast(ActionEvent actionEvent) throws Exception {
 
         // get the correct zip and its information
         String zipstring = ziptextfield.getText();
-        zip = ziplist.Find(zipstring);
 
-        // combine the zip's coords and get the geopoints
-        String coords = zip.getLat() + "," + zip.getLog();
-        CoordstoPoint(coords);
+        String error = "none";
 
-        // collect the weekly forecast
-        getForcast();
+       try {
+           zip = ziplist.Find(zipstring);
 
-        // set up the new selected and weekly forecasts to the fxmls
-        if(time >= 18 || time < 6) {
-            switchtime.setText("Set Daytime");
-        } else{
-            switchtime.setText("Set Nighttime");
+       } catch (Exception e) {
+            error = "nonnumber";
+       }
+        if(zip == null){
+
+            if(error.equals("nonnumber") == true){
+                BadZip("nonnumber");
+            } else {
+                BadZip("null");
+            }
+
+
+        } else {
+
+
+            // combine the zip's coords and get the geopoints
+            String coords = zip.getLat() + "," + zip.getLog();
+            CoordstoPoint(coords);
+
+            // collect the weekly forecast
+            getForcast();
+
+            // set up the new selected and weekly forecasts to the fxmls
+            if (time >= 18 || time < 6) {
+                switchtime.setText("Set Daytime");
+                setDark();
+            } else {
+                switchtime.setText("Set Nighttime");
+                setLight();
+            }
+
+
+            switchtime.setSelected(false);
+            sSetup();
+            setup1(1);
+            setup2(3);
+            setup3(5);
+            setup4(7);
+            setup5(9);
+            setup6(11);
+            setup7(13);
+
         }
 
 
-        switchtime.setSelected(false);
-        sSetup();
-        setup1(1);
-        setup2(3);
-        setup3(5);
-        setup4(7);
-        setup5(9);
-        setup6(11);
-        setup7(13);
+    }
 
+
+    public void BadZip(String reason){
+
+
+        if(reason.equals("null") == true){
+            reason = "Zipcode does not exist";
+        } else {
+            reason = "Zipcode must be 5 digit sequence";
+        }
+
+
+        Alert alert = new Alert(Alert.AlertType.ERROR, reason );
+        alert.setHeaderText(null);
+        alert.setGraphic(null);
+        alert.showAndWait();
 
     }
 
 
+    // sets specific variables to matching weather variables
     public void sSetup(){
-
         sLocation.setText(zip.getCity() + ", " + zip.getState());
-
         Double c = ((Integer.parseInt(wSelected.getTemp()) - 32)) * .55;
         long ce = Math.round(c);
-
         sTemp.setText(wSelected.getTemp() + "F / " + ce + "C");
-
-        sForecast.setText(wSelected.getForcast());
-
+        sForecast.setText(wSelected.getFullForecast());
         sPic.setImage(new Image(wSelected.getIconLink()));
-
         sDay.setText(wSelected.getDay());
-
-
-
-
     }
 
     public void setup1( int i){
-
         temp1.setText(wList[i].getTemp() + "F");
         day1.setText(wList[i].getDay());
         pic1.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast1 = wList[i].getFullForecast();
     }
 
     public void setup2( int i){
-
         temp2.setText(wList[i].getTemp() + "F");
         day2.setText(wList[i].getDay());
         pic2.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast2 = wList[i].getFullForecast();
     }
 
     public void setup3( int i){
-
         temp3.setText(wList[i].getTemp() + "F");
         day3.setText(wList[i].getDay());
         pic3.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast3 = wList[i].getFullForecast();
     }
 
-    public void setup4( int i){
 
+    public void setup4( int i){
         temp4.setText(wList[i].getTemp() + "F");
         day4.setText(wList[i].getDay());
         pic4.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast4 = wList[i].getFullForecast();
     }
 
     public void setup5( int i){
-
         temp5.setText(wList[i].getTemp() + "F");
         day5.setText(wList[i].getDay());
         pic5.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast5 = wList[i].getFullForecast();
     }
 
     public void setup6( int i){
-
         temp6.setText(wList[i].getTemp() + "F");
         day6.setText(wList[i].getDay());
         pic6.setImage((new Image(wList[i].getIconLink())));
-
-
+        cast6 = wList[i].getFullForecast();
     }
 
     public void setup7( int i) {
-
         temp7.setText(wList[i].getTemp() + "F");
         day7.setText(wList[i].getDay());
         pic7.setImage((new Image(wList[i].getIconLink())));
-
+        cast7 = wList[i].getFullForecast();
     }
 
 
+    // mouse click functionality that swaps the main panes variables with the selected panes variables
     @FXML
     public void paneclick1(MouseEvent mouseEvent){
-
         sDay.setText(day1.getText());
         sTemp.setText(temp1.getText() + " / " + FConvert(temp1) + "C" );
-        sForecast.setText((wList[1].getForcast()));
+        sForecast.setText(cast1);
         sPic.setImage(pic1.getImage());
-
-        // sColor.setColor(color1.setColor();
 
     }
 
     @FXML
     public void paneclick2(MouseEvent mouseEvent){
-
         sDay.setText(day2.getText());
         sTemp.setText(temp2.getText() + " / " + FConvert(temp2) + "C" );
-        sForecast.setText((wList[3].getForcast()));
+        sForecast.setText(cast2);
         sPic.setImage(pic2.getImage());
-
     }
 
     @FXML
     public void paneclick3(MouseEvent mouseEvent){
-
         sDay.setText(day3.getText());
         sTemp.setText(temp3.getText() + " / " + FConvert(temp3) + "C" );
-        sForecast.setText((wList[5].getForcast()));
+        sForecast.setText(cast3);
         sPic.setImage(pic3.getImage());
-
     }
 
     @FXML
     public void paneclick4(MouseEvent mouseEvent){
-
         sDay.setText(day4.getText());
         sTemp.setText(temp4.getText() + " / " + FConvert(temp4) + "C" );
-        sForecast.setText((wList[7].getForcast()));
+        sForecast.setText(cast4);
         sPic.setImage(pic4.getImage());
-
     }
 
     @FXML
     public void paneclick5(MouseEvent mouseEvent){
-
         sDay.setText(day5.getText());
         sTemp.setText(temp5.getText() + " / " + FConvert(temp5) + "C" );
-        sForecast.setText((wList[9].getForcast()));
+        sForecast.setText(cast5);
         sPic.setImage(pic5.getImage());
-
     }
 
     @FXML
     public void paneclick6(MouseEvent mouseEvent){
-
         sDay.setText(day6.getText());
         sTemp.setText(temp6.getText() + " / " + FConvert(temp6) + "C" );
-        sForecast.setText((wList[11].getForcast()));
+        sForecast.setText(cast6);
         sPic.setImage(pic6.getImage());
-
     }
 
     @FXML
     public void paneclick7(MouseEvent mouseEvent){
-
         sDay.setText(day7.getText());
-        sTemp.setText(temp7.getText() + " / " + FConvert(temp7) + "C" );
-        sForecast.setText((wList[13].getForcast()));
+        sTemp.setText(temp7.getText() + " / " + FConvert(temp1) + "C" );
+        sForecast.setText(cast7);
         sPic.setImage(pic7.getImage());
-
     }
 
+    // method that converts the Fahrenheit number to a celcius number
     public String FConvert(Text temp){
-
         Double celsius  = (Double.parseDouble(temp.getText().substring(0,temp.getText().length()-1)) - 32) * .55;
-
         Long ce = Math.round(celsius);
-
-
         String c = "" + ce;
-
         return c;
-
-
-
     }
-
 
 
 
@@ -409,13 +455,13 @@ public class Controller implements Initializable {
 
             // setting ID, X and Y points
             setID(splitline[IDpoint].substring(19,22));
-            //  System.out.println(getID());
+         //  System.out.println(getID());
 
             setPointX(splitline[Xpoint].substring(17, splitline[Xpoint].indexOf(",")));
-            //   System.out.println(getPointX());
+         //   System.out.println(getPointX());
 
             setPointY(splitline[Ypoint].substring(17, splitline[Ypoint].indexOf(",")));
-            //  System.out.println(getPointY());
+          //  System.out.println(getPointY());
 
 
             // Closing file if something goes wrong
@@ -485,53 +531,48 @@ public class Controller implements Initializable {
                 }
 
                 //saving data
-
+        
                 wHold.setDay(wData[2].substring(25,wData[2].indexOf(",") - 1));
                 //printline checks it's saving it correctly
-                //   System.out.println(wHold.getDay());
+               //   System.out.println(wHold.getDay());
 
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
-                //    System.out.println(wHold.getTemp());
+             //    System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[12].substring(34, wData[12].indexOf(",") - 1));
-                //    System.out.println(wHold.getForcast());
+             //    System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
-                //    System.out.println(wHold.getWindmph());
+             //    System.out.println(wHold.getWindmph());
 
                 wHold.setWinddir(wData[10].substring(34, wData[10].indexOf(",") - 1));
-                //     System.out.println(wHold.getWinddir());
+            //     System.out.println(wHold.getWinddir());
 
                 wHold.setIconLink(wData[11].substring(25, wData[11].indexOf("\",")));
-                //         System.out.println(wHold.getIconLink());
+            //         System.out.println(wHold.getIconLink());
 
 
                 wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
                 //      System.out.println(wHold.getFullForecast());
 
                 wHold.setNumber((Integer.parseInt(wData[1].substring(26, wData[1].indexOf(",")))));
-                //     System.out.println(wHold.getNumber());
+           //     System.out.println(wHold.getNumber());
 
                 if(i == 1){
-                    date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
-                    // System.out.println(date);
-                    date = date.substring(5, date.length()) + "-" + date.substring(0,4);
+                date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
+               // System.out.println(date);
+                date = date.substring(5, date.length()) + "-" + date.substring(0,4);
                     fdate.setText(date);
-                    time = Integer.parseInt(wData[3].substring(41, 43));
-                    System.out.println(time);
+                 time = Integer.parseInt(wData[3].substring(41, 43));
+            //     System.out.println(time);
                 }
-
-
-                ;
                 wList[i] = wHold;
-
-
             }
 
             wSelected = wList[1];
 
 
-            // closing file if something goes wrong
+        // closing file if something goes wrong
         } catch (IOException ex){
             //Print to the error stream
             //IOException ex will contain attempted file name
@@ -554,28 +595,41 @@ public class Controller implements Initializable {
     }
 
 
+
+
+
+
+
+
+
+
+    // Time button funcitonality
     @FXML
     private void TimeSwitch(){
 
+        // checking which time it currently is
         if(switchtime.isSelected() == true){
 
             if(switchtime.getText().equals("Set Nighttime") == true){
-
                 switchtime.setText("Set Daytime");
-
+                setDark();
             } else{
-
                 switchtime.setText("Set Nighttime");
-
+                setLight();
             }
 
 
+                Double c = ((Integer.parseInt(wList[wSelected.getNumber() + 1].getTemp()) - 32)) * .55;
+                long ce = Math.round(c);
 
-            sTemp.setText(wList[wSelected.getNumber() + 1].getTemp() + " F / "+ (Integer.parseInt(wList[wSelected.getNumber() + 1].getTemp()) - 32) + " C");
+            // setting main pane
+            sTemp.setText(wList[wSelected.getNumber() + 1].getTemp() + "F / " + ce + "C");
             sDay.setText((wList[wSelected.getNumber() + 1].getDay()));
-            sForecast.setText(wList[wSelected.getNumber() + 1].getForcast());
+            sForecast.setText(wList[wSelected.getNumber() + 1].getFullForecast());
             sPic.setImage(new Image(wList[wSelected.getNumber() + 1].getIconLink()));
+          //  sTemp.set
 
+            // setting other panes
             setup1(2);
             setup2(4);
             setup3(6);
@@ -587,19 +641,22 @@ public class Controller implements Initializable {
 
         } else{
 
+            // if opposite is default
             if(switchtime.getText().equals("Set Nighttime") == true){
-
                 switchtime.setText("Set Daytime");
-
+                setDark();
             } else{
-
                 switchtime.setText("Set Nighttime");
-
+                setLight();
             }
 
-            sTemp.setText(wList[wSelected.getNumber()].getTemp() + " F / "+ (Integer.parseInt(wList[wSelected.getNumber() + 1].getTemp()) - 32) + " C");
+
+            Double c = ((Integer.parseInt(wList[wSelected.getNumber()].getTemp()) - 32)) * .55;
+            long ce = Math.round(c);
+
+            sTemp.setText(wList[wSelected.getNumber()].getTemp() + "F / " + ce + "C");
             sDay.setText((wList[wSelected.getNumber()].getDay()));
-            sForecast.setText(wList[wSelected.getNumber()].getForcast());
+            sForecast.setText(wList[wSelected.getNumber()].getFullForecast());
             sPic.setImage(new Image(wList[wSelected.getNumber()].getIconLink()));
 
             setup1(1);
@@ -618,8 +675,109 @@ public class Controller implements Initializable {
 
     }
 
+    public void setDark(){
+        mainpane.setStyle("-fx-background-color:" + darkback);
+        setAllBorder(lightback);
+
+        sLocation.setFill(lighttext);
+        sForecast.setFill(lighttext);
+        sDay.setFill(lighttext);
+        sTemp.setFill(lighttext);
+        fdate.setFill(lighttext);
+
+        enterziptext.setFill(lighttext);
 
 
+        day1.setFill(lighttext);
+        day2.setFill(lighttext);
+        day3.setFill(lighttext);
+        day4.setFill(lighttext);
+        day5.setFill(lighttext);
+        day6.setFill(lighttext);
+        day7.setFill(lighttext);
+
+        temp1.setFill(lighttext);
+        temp2.setFill(lighttext);
+        temp3.setFill(lighttext);
+        temp4.setFill(lighttext);
+        temp5.setFill(lighttext);
+        temp6.setFill(lighttext);
+        temp7.setFill(lighttext);
+
+        enterziptext.setFill(lighttext);
+    }
+
+    public void setLight(){
+        mainpane.setStyle("-fx-background-color:" + lightback);
+        setAllBorder(darkback);
+
+        sLocation.setFill(darktext);
+        sForecast.setFill(darktext);
+        sDay.setFill(darktext);
+        sTemp.setFill(darktext);
+
+        day1.setFill(darktext);
+        day2.setFill(darktext);
+        day3.setFill(darktext);
+        day4.setFill(darktext);
+        day5.setFill(darktext);
+        day6.setFill(darktext);
+        day7.setFill(darktext);
+
+        temp1.setFill(darktext);
+        temp2.setFill(darktext);
+        temp3.setFill(darktext);
+        temp4.setFill(darktext);
+        temp5.setFill(darktext);
+        temp6.setFill(darktext);
+        temp7.setFill(darktext);
+
+        fdate.setFill(darktext);
+        enterziptext.setFill(darktext);
+    }
+
+
+
+
+    public void BackgroundAnimation(){
+
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        Twinkle();
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+        };
+
+        Thread t = new Thread(r);
+
+        t.setDaemon(true);
+
+        t.start();
+
+    }
+
+
+
+    public void Twinkle() throws InterruptedException {
+
+            c1.setRadius(2);
+
+            Thread.sleep(100);
+
+            c1.setRadius(1);
+
+
+    }
 
 
 
@@ -664,6 +822,18 @@ public class Controller implements Initializable {
     }
 
 
+    public void setAllBorder(String color){
+
+        mainpane.getCenter().setStyle("-fx-border-color:" + color);
+        mainpane.getTop().setStyle("-fx-border-color:" + color);
+        weekbox.setStyle("-fx-border-color:" + color);
+
+        for(int i = 0; i < 7; i++){
+
+            weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
+
+        }
+    }
 
 
 
