@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: ghostwhite; -fx-border-color: black;" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: ivory; -fx-border-color: black;" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0">
          <top>
@@ -21,11 +21,11 @@
                <children>
                    <ToggleButton fx:id="switchtime" mnemonicParsing="false" onAction="#TimeSwitch" text="Switch Mode" GridPane.halignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="12.0" />
+                        <Font name="Eras Demi ITC" size="12.0" />
                      </font></ToggleButton>
                   <Text fx:id="fdate" strokeType="OUTSIDE" strokeWidth="0.0" text="October.27.2020" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="25.0" />
+                        <Font name="Eras Demi ITC" size="25.0" />
                      </font></Text>
                   <GridPane GridPane.columnIndex="2">
                     <columnConstraints>
@@ -40,7 +40,7 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Zip Code: " textAlignment="CENTER" GridPane.rowIndex="1">
                            <font>
-                              <Font name="Modern No. 20" size="16.0" />
+                              <Font name="Eras Demi ITC" size="16.0" />
                            </font>
                         </Text>
                         <TextField fx:id="ziptextfield" onAction="#ZiptoCast" prefHeight="22.0" prefWidth="70.0" text="75090" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -190,19 +190,19 @@
                <children>
                   <Text fx:id="sLocation" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="22.0" />
+                        <Font name="Eras Demi ITC" size="22.0" />
                      </font></Text>
                   <Text fx:id="sDay" strokeType="OUTSIDE" strokeWidth="0.0" text="Day" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="22.0" />
+                        <Font name="Eras Demi ITC" size="22.0" />
                      </font></Text>
                   <Text fx:id="sTemp" strokeType="OUTSIDE" strokeWidth="0.0" text="Temperature" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="22.0" />
+                        <Font name="Eras Demi ITC" size="22.0" />
                      </font></Text>
                   <Text fx:id="sForecast" strokeType="OUTSIDE" strokeWidth="0.0" text="Status" textAlignment="CENTER" wrappingWidth="153.109375" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <font>
-                        <Font name="Modern No. 20" size="18.0" />
+                        <Font name="Eras Demi ITC" size="18.0" />
                      </font></Text>
                   <ImageView fx:id="sPic" fitHeight="156.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
                </children>
