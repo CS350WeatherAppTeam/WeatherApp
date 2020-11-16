@@ -15,7 +15,7 @@ public class ZipcodeList {
     ArrayList<Zipcode>[] zipcodeList = new ArrayList[10];
 
 
-// creating a list of zipcodes from a file that can easily be found later
+
     public void Build() throws Exception {
 
         for (int i = 0; i < 10; i++) {
@@ -24,7 +24,7 @@ public class ZipcodeList {
 
         }
 
-        Path noPath = Paths.get("us-zip-code-latitude-longitude.txt");
+        Path noPath = Paths.get("C:\\Users\\Min\\IdeaProjects\\WeatherApp-main\\WeatherApp-main\\WeatherApp\\src\\us-zip-code-latitude-and-longitude.csv");
         File simpleData = noPath.toFile();
 
         FileReader fr = null;
@@ -133,7 +133,6 @@ public class ZipcodeList {
         }
     }
 
-    // supporting heap methods
     public void BuildMaxHeap(int i, int heapsize) {
 
         heapsize = zipcodeList[i].size();
@@ -184,7 +183,7 @@ public class ZipcodeList {
 
 
 
-// goes through list to find zipcode
+
     public Zipcode Find(String v){
 
         int searchzip = Integer.parseInt(v);
