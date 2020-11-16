@@ -10,10 +10,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -26,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -129,6 +127,11 @@ public class Controller implements Initializable {
     @FXML
     private DialogPane dp;
 
+    @FXML
+    private Pane starpane;
+
+    ArrayList<Circle> clist;
+
 
 
     @FXML
@@ -136,6 +139,7 @@ public class Controller implements Initializable {
 
     @FXML
     private Text enterziptext;
+
 
     String date;
     int time;
@@ -173,9 +177,9 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        System.out.println("Building...");
+  //      System.out.println("Building...");
 
-
+        StarGenerator();
 
 
 
@@ -197,10 +201,16 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
+        mainpane.widthProperty().addListener((obs, oldVal, newVal) -> {
+            setVisibleCoords();
+        });
+
+        mainpane.heightProperty().addListener((obs, oldVal, newVal) -> {
+            setVisibleCoords();
+        });
 
 
-
-  //      BackgroundAnimation();
+        BackgroundAnimation();
 
     }
 
@@ -526,7 +536,7 @@ public class Controller implements Initializable {
                 Weather wHold = new Weather();
                 for(int j = 0; j < 15; j++) {
                     wData[j] = lineOData;
-                    System.out.println(lineOData);
+             //       System.out.println(lineOData);
                     lineOData = br.readLine();
                 }
 
@@ -748,7 +758,6 @@ public class Controller implements Initializable {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Twinkle();
-                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -770,16 +779,92 @@ public class Controller implements Initializable {
 
     public void Twinkle() throws InterruptedException {
 
-            c1.setRadius(2);
+        Random r = new Random();
 
-            Thread.sleep(100);
+        int i = r.nextInt(clist.size());
 
-            c1.setRadius(1);
+        int time = r.nextInt(1500) + 500;
 
+        Thread.sleep(time);
+
+        clist.get(i).setRadius(2);
+
+        Thread.sleep(100);
+
+        clist.get(i).setRadius(1);
+
+    }
+
+    public void StarGenerator(){
+
+        Random rand = new Random();
+
+        clist = new ArrayList<>();
+
+        int x = 10;
+        int y = 10;
+
+        int MaxY = 490;
+
+        starpane.toBack();
+
+        while(x <= 645) {
+
+            Circle c = new Circle(0, 0, 1);
+            c.setFill(lighttext);
+
+
+            y = rand.nextInt(MaxY - 10) + 10;
+
+            boolean visible = true;
+
+            if (x >= 50 && x <= 595) {
+                if (y >= 290) {
+                    visible = false;
+                }
+            }
+            if (x >= 70 && x <= 225) {
+                if (y >= 215 && y <= 240) {
+                    visible = false;
+                }
+            }
+
+            if (x >= 230 && x <= 415) {
+                if (y >= 60 && y <= 90) {
+                    visible = false;
+                }
+            }
+
+            if (x >= 425 && x <= 515) {
+                if (y >= 215 && y <= 240) {
+                    visible = false;
+                }
+            }
+
+            if(visible == true) {
+                c.setCenterX(x);
+                c.setCenterY(y);
+                clist.add(c);
+                starpane.getChildren().add(c);
+            }
+
+
+
+            x++;
+        }
 
     }
 
 
+
+    @FXML
+    private void Mousecoords(MouseEvent mouseEvent){
+        double x = mouseEvent.getX();
+        double y = mouseEvent.getY();
+
+        System.out.println("moose");
+        System.out.println(x + "," + y);
+    }
 
     public Weather[] getwList() {
         return wList;
@@ -833,6 +918,81 @@ public class Controller implements Initializable {
             weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
 
         }
+    }
+
+    @FXML
+    private void setVisibleCoords(){
+
+
+
+        double x = mainpane.getWidth();
+        double y = mainpane.getHeight();
+
+     //   mainpane.getCenter().setStyle("-fx-border-style: none none none none");
+      //  sForecast.setVisible(false);
+       // weekbox.setVisible(false);
+      //  ziptextfield.setVisible(false);
+      //  enterziptext.setVisible(false);
+
+        starpane.setOpacity((x/1600) + (y/970));
+     //   System.out.println(starpane.getOpacity());
+
+
+        if (x <= 690 || y <= 470){
+            mainpane.getCenter().setStyle("-fx-border-style: none none none none");
+            weekbox.setVisible(false);
+
+
+        } else {
+            mainpane.getCenter().setStyle("-fx-border-style: solid solid solid solid");
+            weekbox.setVisible(true);
+
+        }
+
+        if (x <= 690) {
+            ziptextfield.setVisible(false);
+            enterziptext.setVisible(false);
+            switchtime.setVisible(false);
+        } else{
+            ziptextfield.setVisible(true);
+            enterziptext.setVisible(true);
+            switchtime.setVisible(true);
+        }
+
+        if(x <= 685 || y <= 450) {
+            sForecast.setVisible(false);
+        } else{
+            sForecast.setVisible(true);
+        }
+
+        if(x <= 225){
+            fdate.setVisible(false);
+        } else {
+            fdate.setVisible(true);
+        }
+
+        if(x <= 610) {
+            sTemp.setVisible(false);
+            sDay.setVisible(false);
+        } else {
+            sTemp.setVisible(true);
+            sDay.setVisible(true);
+        }
+
+        if(y <= 250){
+            sLocation.setVisible(false);
+            mainpane.getTop().setVisible(false);
+            mainpane.getTop().setDisable(true);
+        } else{
+            sLocation.setVisible(true);
+            mainpane.getTop().setVisible(true);
+            mainpane.getTop().setDisable(false);
+        }
+
+
+        System.out.println(x + "," + y);
+
+
     }
 
 

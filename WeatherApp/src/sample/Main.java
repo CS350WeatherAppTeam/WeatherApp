@@ -14,7 +14,14 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("weather.fxml"));
         primaryStage.setTitle("Weather App");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setWidth(820);
+        primaryStage.setHeight(520);
+        primaryStage.setMaxWidth(820);
+        primaryStage.setMaxHeight(520);
+        primaryStage.setMinWidth(250);
+        primaryStage.setMinHeight(280);
+        primaryStage.setScene(new Scene(root));
+
         primaryStage.show();
     }
 
