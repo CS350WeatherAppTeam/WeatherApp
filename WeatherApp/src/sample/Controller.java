@@ -13,6 +13,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 
@@ -33,10 +35,16 @@ public class Controller implements Initializable {
 
 
     Color darktext = Color.BLACK;
-    Color lighttext = Color.SNOW;
+    Color lighttext = Color.GHOSTWHITE;
 
     String darkback = "black";
-    String lightback = "snow";
+    String lightback = "ghostwhite";
+    String borderc = "magenta";
+
+    String sfont = "Eras Bold ITC";
+
+
+
 
     @FXML
     private BorderPane mainpane;
@@ -63,7 +71,7 @@ public class Controller implements Initializable {
     @FXML
     private Text sDay;
 
-
+  
     @FXML
     private Text temp1;
     @FXML
@@ -132,15 +140,19 @@ public class Controller implements Initializable {
 
     ArrayList<Circle> clist;
 
+
+
     @FXML
     private Text fdate;
 
     @FXML
     private Text enterziptext;
 
+
     String date;
     int time;
 
+    int cselected;
 
 
 
@@ -168,19 +180,20 @@ public class Controller implements Initializable {
 
 
 
+
 // Build zipcode list, and set default zip
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //      System.out.println("Building...");
+  //      System.out.println("Building...");
 
         StarGenerator();
 
 
 
-        // daylist = new Text[8];
-        // daylist[1].setText("Check");
+       // daylist = new Text[8];
+       // daylist[1].setText("Check");
 
         wList = new Weather[15];
 
@@ -206,27 +219,36 @@ public class Controller implements Initializable {
         });
 
 
+
+
+        cselected = 0;
+        borderSelected(0);
+        setAllFonts();
+
+
+
         BackgroundAnimation();
 
     }
 
 
+
     // The full action helper method that uses the inputed zip code to convert to forecast
 
-    @FXML
-    public void ZiptoCast(ActionEvent actionEvent) throws Exception {
+        @FXML
+         public void ZiptoCast(ActionEvent actionEvent) throws Exception {
 
         // get the correct zip and its information
         String zipstring = ziptextfield.getText();
 
         String error = "none";
 
-        try {
-            zip = ziplist.Find(zipstring);
+       try {
+           zip = ziplist.Find(zipstring);
 
-        } catch (Exception e) {
+       } catch (Exception e) {
             error = "nonnumber";
-        }
+       }
         if(zip == null){
 
             if(error.equals("nonnumber") == true){
@@ -267,6 +289,8 @@ public class Controller implements Initializable {
             setup7(13);
 
         }
+
+
 
 
     }
@@ -360,6 +384,8 @@ public class Controller implements Initializable {
         sForecast.setText(cast1);
         sPic.setImage(pic1.getImage());
         borderSelected(0);
+        cselected = 0;
+
     }
 
     @FXML
@@ -369,6 +395,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast2);
         sPic.setImage(pic2.getImage());
         borderSelected(1);
+        cselected = 1;
     }
 
     @FXML
@@ -378,6 +405,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast3);
         sPic.setImage(pic3.getImage());
         borderSelected(2);
+        cselected = 2;
     }
 
     @FXML
@@ -387,6 +415,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast4);
         sPic.setImage(pic4.getImage());
         borderSelected(3);
+        cselected = 3;
     }
 
     @FXML
@@ -396,6 +425,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast5);
         sPic.setImage(pic5.getImage());
         borderSelected(4);
+        cselected = 4;
     }
 
     @FXML
@@ -405,6 +435,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast6);
         sPic.setImage(pic6.getImage());
         borderSelected(5);
+        cselected = 5;
     }
 
     @FXML
@@ -414,6 +445,7 @@ public class Controller implements Initializable {
         sForecast.setText(cast7);
         sPic.setImage(pic7.getImage());
         borderSelected(6);
+        cselected = 6;
     }
 
     // method that converts the Fahrenheit number to a celcius number
@@ -466,13 +498,13 @@ public class Controller implements Initializable {
 
             // setting ID, X and Y points
             setID(splitline[IDpoint].substring(19,22));
-            //  System.out.println(getID());
+         //  System.out.println(getID());
 
             setPointX(splitline[Xpoint].substring(17, splitline[Xpoint].indexOf(",")));
-            //   System.out.println(getPointX());
+         //   System.out.println(getPointX());
 
             setPointY(splitline[Ypoint].substring(17, splitline[Ypoint].indexOf(",")));
-            //  System.out.println(getPointY());
+          //  System.out.println(getPointY());
 
 
             // Closing file if something goes wrong
@@ -537,45 +569,45 @@ public class Controller implements Initializable {
                 Weather wHold = new Weather();
                 for(int j = 0; j < 15; j++) {
                     wData[j] = lineOData;
-                    System.out.println(lineOData);
+             //       System.out.println(lineOData);
                     lineOData = br.readLine();
                 }
 
                 //saving data
-
+        
                 wHold.setDay(wData[2].substring(25,wData[2].indexOf(",") - 1));
                 //printline checks it's saving it correctly
-                //   System.out.println(wHold.getDay());
+               //   System.out.println(wHold.getDay());
 
                 wHold.setTemp(wData[6].substring(31, wData[6].indexOf(",")));
-                //    System.out.println(wHold.getTemp());
+             //    System.out.println(wHold.getTemp());
 
                 wHold.setForcast(wData[12].substring(34, wData[12].indexOf(",") - 1));
-                //    System.out.println(wHold.getForcast());
+             //    System.out.println(wHold.getForcast());
 
                 wHold.setWindmph(wData[9].substring(30, wData[9].indexOf(",") - 1));
-                //    System.out.println(wHold.getWindmph());
+             //    System.out.println(wHold.getWindmph());
 
                 wHold.setWinddir(wData[10].substring(34, wData[10].indexOf(",") - 1));
-                //     System.out.println(wHold.getWinddir());
+            //     System.out.println(wHold.getWinddir());
 
                 wHold.setIconLink(wData[11].substring(25, wData[11].indexOf("\",")));
-                //         System.out.println(wHold.getIconLink());
+            //         System.out.println(wHold.getIconLink());
 
 
                 wHold.setFullForecast(wData[13].substring(37, wData[13].length() - 1));
                 //      System.out.println(wHold.getFullForecast());
 
                 wHold.setNumber((Integer.parseInt(wData[1].substring(26, wData[1].indexOf(",")))));
-                //     System.out.println(wHold.getNumber());
+           //     System.out.println(wHold.getNumber());
 
                 if(i == 1){
-                    date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
-                    // System.out.println(date);
-                    date = date.substring(5, date.length()) + "-" + date.substring(0,4);
+                date = wData[3].substring(30, wData[3].indexOf("\",") - 15);
+               // System.out.println(date);
+                date = date.substring(5, date.length()) + "-" + date.substring(0,4);
                     fdate.setText(date);
-                    time = Integer.parseInt(wData[3].substring(41, 43));
-                    //     System.out.println(time);
+                 time = Integer.parseInt(wData[3].substring(41, 43));
+            //     System.out.println(time);
                 }
                 wList[i] = wHold;
             }
@@ -583,7 +615,7 @@ public class Controller implements Initializable {
             wSelected = wList[1];
 
 
-            // closing file if something goes wrong
+        // closing file if something goes wrong
         } catch (IOException ex){
             //Print to the error stream
             //IOException ex will contain attempted file name
@@ -630,15 +662,15 @@ public class Controller implements Initializable {
             }
 
 
-            Double c = ((Integer.parseInt(wList[wSelected.getNumber() + 1].getTemp()) - 32)) * .55;
-            long ce = Math.round(c);
+                Double c = ((Integer.parseInt(wList[wSelected.getNumber() + 1].getTemp()) - 32)) * .55;
+                long ce = Math.round(c);
 
             // setting main pane
             sTemp.setText(wList[wSelected.getNumber() + 1].getTemp() + "F / " + ce + "C");
             sDay.setText((wList[wSelected.getNumber() + 1].getDay()));
             sForecast.setText(wList[wSelected.getNumber() + 1].getFullForecast());
             sPic.setImage(new Image(wList[wSelected.getNumber() + 1].getIconLink()));
-            //  sTemp.set
+          //  sTemp.set
 
             // setting other panes
             setup1(2);
@@ -819,6 +851,8 @@ public class Controller implements Initializable {
 
             boolean visible = true;
 
+
+
             if (x >= 50 && x <= 595) {
                 if (y >= 290) {
                     visible = false;
@@ -867,112 +901,6 @@ public class Controller implements Initializable {
         System.out.println(x + "," + y);
     }
 
-    public void setAllBorder(String color){
-
-        mainpane.getCenter().setStyle("-fx-border-color:" + color);
-        mainpane.getTop().setStyle("-fx-border-color:" + color);
-        weekbox.setStyle("-fx-border-color:" + color);
-
-        for(int i = 0; i < 7; i++){
-
-            weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
-
-        }
-    }
-
-    @FXML
-    private void setVisibleCoords(){
-
-
-
-        double x = mainpane.getWidth();
-        double y = mainpane.getHeight();
-
-        //   mainpane.getCenter().setStyle("-fx-border-style: none none none none");
-        //  sForecast.setVisible(false);
-        // weekbox.setVisible(false);
-        //  ziptextfield.setVisible(false);
-        //  enterziptext.setVisible(false);
-
-        starpane.setOpacity((x/1600) + (y/970));
-        //   System.out.println(starpane.getOpacity());
-
-
-        if (x <= 690 || y <= 470){
-            mainpane.getCenter().setStyle("-fx-border-style: none none none none");
-            weekbox.setVisible(false);
-
-
-        } else {
-            mainpane.getCenter().setStyle("-fx-border-style: solid solid solid solid");
-            weekbox.setVisible(true);
-
-        }
-
-        if (x <= 690) {
-            ziptextfield.setVisible(false);
-            enterziptext.setVisible(false);
-            switchtime.setVisible(false);
-        } else{
-            ziptextfield.setVisible(true);
-            enterziptext.setVisible(true);
-            switchtime.setVisible(true);
-        }
-
-        if(x <= 685 || y <= 450) {
-            sForecast.setVisible(false);
-        } else{
-            sForecast.setVisible(true);
-        }
-
-        if(x <= 225){
-            fdate.setVisible(false);
-        } else {
-            fdate.setVisible(true);
-        }
-
-        if(x <= 610) {
-            sTemp.setVisible(false);
-            sDay.setVisible(false);
-        } else {
-            sTemp.setVisible(true);
-            sDay.setVisible(true);
-        }
-
-        if(y <= 250){
-            sLocation.setVisible(false);
-            mainpane.getTop().setVisible(false);
-            mainpane.getTop().setDisable(true);
-        } else{
-            sLocation.setVisible(true);
-            mainpane.getTop().setVisible(true);
-            mainpane.getTop().setDisable(false);
-        }
-
-
-        System.out.println(x + "," + y);
-
-
-    }
-
-    public void borderSelected(int paneNum) {
-        // For reseting the border whenever it is clicked so that there are no duplicate selected panel
-        for(int i = 0; i < 7; i++){
-            // This will check the condition whether the border should stay white or black
-            // depending on the status of switchtime
-            if(switchtime.getText().equals("Set Nighttime") == true){
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
-                weekbox.getChildren().get(i).setStyle("-fx-border-color: black");
-            } else{
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
-                weekbox.getChildren().get(i).setStyle("-fx-border-color: white");
-            }
-        }
-        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: red; -fx-border-width:3");
-    }
-
-
-
     public Weather[] getwList() {
         return wList;
     }
@@ -1011,6 +939,159 @@ public class Controller implements Initializable {
 
     public void setwSelected(Weather wSelected) {
         this.wSelected = wSelected;
+    }
+
+
+    public void setAllBorder(String color){
+
+        mainpane.getCenter().setStyle("-fx-border-color:" + color);
+        mainpane.getTop().setStyle("-fx-border-color:" + color);
+        weekbox.setStyle("-fx-border-color:" + color);
+
+        for(int i = 0; i < 7; i++){
+
+            weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
+            if(i == cselected){
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: " + borderc);
+            }
+
+        }
+    }
+
+    @FXML
+    private void setVisibleCoords(){
+
+
+
+        double x = mainpane.getWidth();
+        double y = mainpane.getHeight();
+
+     //   mainpane.getCenter().setStyle("-fx-border-style: none none none none");
+      //  sForecast.setVisible(false);
+       // weekbox.setVisible(false);
+      //  ziptextfield.setVisible(false);
+      //  enterziptext.setVisible(false);
+
+        starpane.setOpacity((x/1600) + (y/970));
+     //   System.out.println(starpane.getOpacity());
+
+
+
+
+        if (x <= 690 || y <= 470){
+            mainpane.getCenter().setStyle("-fx-border-style: none none none none");
+            weekbox.setVisible(false);
+
+
+        } else {
+            mainpane.getCenter().setStyle("-fx-border-style: solid solid solid solid");
+            weekbox.setVisible(true);
+
+        }
+
+        if (x <= 690) {
+            ziptextfield.setVisible(false);
+            enterziptext.setVisible(false);
+            switchtime.setVisible(false);
+        } else{
+            ziptextfield.setVisible(true);
+            enterziptext.setVisible(true);
+            switchtime.setVisible(true);
+        }
+
+        if(x <= 685 || y <= 450) {
+            sForecast.setVisible(false);
+        } else{
+            sForecast.setVisible(true);
+        }
+
+        if(x <= 225){
+            fdate.setVisible(false);
+        } else {
+            fdate.setVisible(true);
+        }
+
+
+        if(x <= 610) {
+            sTemp.setVisible(false);
+           sDay.setVisible(false);
+        } else {
+            sTemp.setVisible(true);
+            sDay.setVisible(true);
+        }
+
+        if(y <= 250){
+            sLocation.setVisible(false);
+            mainpane.getTop().setVisible(false);
+
+        } else{
+            sLocation.setVisible(true);
+            mainpane.getTop().setVisible(true);
+
+        }
+
+
+
+        System.out.println(x + "," + y);
+
+
+    }
+
+
+    public void borderSelected(int paneNum) {
+     //    For reseting the border whenever it is clicked so that there are no duplicate selected panel
+        for(int i = 0; i < 7; i++){
+       //      This will check the condition whether the border should stay white or black
+         //    depending on the status of switchtime
+            if(switchtime.getText().equals("Set Nighttime") == true){
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: black");
+            } else{
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: white");
+            }
+       }
+        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: " + borderc +"; -fx-border-width:1");
+
+    }
+
+
+
+    public void setAllFonts(){
+
+
+        Font font = Font.font(sfont,25);
+
+        sLocation.setFont(font);
+        sDay.setFont(font);
+        sTemp.setFont(font);
+        sForecast.setFont(font);
+
+        fdate.setFont(font);
+
+        font = Font.font(sfont, 16);
+        enterziptext.setFont(font);
+        ziptextfield.setFont(font);
+        switchtime.setFont(font);
+
+        font = Font.font(sfont, 12);
+        day1.setFont(font);
+        day2.setFont(font);
+        day3.setFont(font);
+        day4.setFont(font);
+        day5.setFont(font);
+        day6.setFont(font);
+        day7.setFont(font);
+
+        temp1.setFont(font);
+        temp2.setFont(font);
+        temp3.setFont(font);
+        temp4.setFont(font);
+        temp5.setFont(font);
+        temp6.setFont(font);
+        temp7.setFont(font);
+
+
     }
 
 
