@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
@@ -35,13 +36,14 @@ public class Controller implements Initializable {
 
 
     Color darktext = Color.BLACK;
-    Color lighttext = Color.GHOSTWHITE;
+    Color lighttext = Color.WHITE;
+    Color starcolor = Color.WHITE;
 
     String darkback = "black";
-    String lightback = "ghostwhite";
+    String lightback = "cornflowerblue";
     String borderc = "magenta";
 
-    String sfont = "Eras Bold ITC";
+    String sfont = "Modern No.20";
 
 
 
@@ -138,6 +140,9 @@ public class Controller implements Initializable {
     @FXML
     private Pane starpane;
 
+    @FXML
+    private Pane cloudpane;
+
     ArrayList<Circle> clist;
 
 
@@ -219,7 +224,8 @@ public class Controller implements Initializable {
         });
 
 
-
+        cloudpane.toBack();
+        starpane.toBack();
 
         cselected = 0;
         borderSelected(0);
@@ -270,10 +276,10 @@ public class Controller implements Initializable {
 
             // set up the new selected and weekly forecasts to the fxmls
             if (time >= 18 || time < 6) {
-                switchtime.setText("Set Daytime");
+                switchtime.setText("Day Mode");
                 setDark();
             } else {
-                switchtime.setText("Set Nighttime");
+                switchtime.setText("Night Mode");
                 setLight();
             }
 
@@ -653,11 +659,11 @@ public class Controller implements Initializable {
         // checking which time it currently is
         if(switchtime.isSelected() == true){
 
-            if(switchtime.getText().equals("Set Nighttime") == true){
-                switchtime.setText("Set Daytime");
+            if(switchtime.getText().equals("Night Mode") == true){
+                switchtime.setText("Day Mode");
                 setDark();
             } else{
-                switchtime.setText("Set Nighttime");
+                switchtime.setText("Night Mode");
                 setLight();
             }
 
@@ -685,11 +691,11 @@ public class Controller implements Initializable {
         } else{
 
             // if opposite is default
-            if(switchtime.getText().equals("Set Nighttime") == true){
-                switchtime.setText("Set Daytime");
+            if(switchtime.getText().equals("Night Mode") == true){
+                switchtime.setText("Day Mode");
                 setDark();
             } else{
-                switchtime.setText("Set Nighttime");
+                switchtime.setText("Night Mode");
                 setLight();
             }
 
@@ -720,7 +726,7 @@ public class Controller implements Initializable {
 
     public void setDark(){
         mainpane.setStyle("-fx-background-color:" + darkback);
-        setAllBorder(lightback);
+        setAllBorder("white");
 
         sLocation.setFill(lighttext);
         sForecast.setFill(lighttext);
@@ -748,6 +754,8 @@ public class Controller implements Initializable {
         temp7.setFill(lighttext);
 
         enterziptext.setFill(lighttext);
+        cloudpane.setVisible(false);
+        starpane.setVisible(true);
     }
 
     public void setLight(){
@@ -777,6 +785,8 @@ public class Controller implements Initializable {
 
         fdate.setFill(darktext);
         enterziptext.setFill(darktext);
+        cloudpane.setVisible(true);
+        starpane.setVisible(false);
     }
 
 
@@ -800,11 +810,42 @@ public class Controller implements Initializable {
             }
         };
 
+
+        Runnable r2 = new Runnable() {
+            @Override
+            public void run() {
+
+                Cloud c = new Cloud();
+
+                for(int i = 0; i < c.getList().length; i++) {
+                    cloudpane.getChildren().add(c.getList()[i]);
+                }
+
+                while(!Thread.currentThread().isInterrupted()){
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    c.Move();
+                }
+
+
+            }
+        };
+
+
+
         Thread t = new Thread(r);
 
         t.setDaemon(true);
 
         t.start();
+
+        Thread t2 = new Thread(r2);
+
+        t2.setDaemon(true);
+        t2.start();
 
     }
 
@@ -839,12 +880,12 @@ public class Controller implements Initializable {
 
         int MaxY = 490;
 
-        starpane.toBack();
+
 
         while(x <= 645) {
 
             Circle c = new Circle(0, 0, 1);
-            c.setFill(lighttext);
+            c.setFill(starcolor);
 
 
             y = rand.nextInt(MaxY - 10) + 10;
@@ -1060,13 +1101,16 @@ public class Controller implements Initializable {
     public void setAllFonts(){
 
 
-        Font font = Font.font(sfont,25);
+        Font font = Font.font(sfont, 30);
 
         sLocation.setFont(font);
+
+        font = Font.font(sfont, 25);
         sDay.setFont(font);
         sTemp.setFont(font);
         sForecast.setFont(font);
 
+        font = Font.font(sfont, 30);
         fdate.setFont(font);
 
         font = Font.font(sfont, 16);
