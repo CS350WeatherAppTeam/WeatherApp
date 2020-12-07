@@ -1,6 +1,6 @@
 # WeatherApp
 
-Created by Min Sheob and Ben Rafalski during the 2020 fall semester.
+Created by MinSeob Shim and Ben Rafalski during the 2020 fall semester.
 
 A basic computer application that uses the National Weather API to show the current weather based in a specific but changeable zip code. 
 
