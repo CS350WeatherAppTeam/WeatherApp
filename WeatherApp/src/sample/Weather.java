@@ -1,5 +1,7 @@
 package sample;
 
+
+//This class holds all the needed weather variables
 public class Weather {
 
     String day;

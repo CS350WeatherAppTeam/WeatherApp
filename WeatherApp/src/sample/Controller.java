@@ -13,9 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 
@@ -28,22 +26,24 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
+/*
+    The main controller with all of it's main methods
+ */
 
 public class Controller implements Initializable {
 
 
-
+    // quick color changes
     Color darktext = Color.BLACK;
-    Color lighttext = Color.WHITE;
-    Color starcolor = Color.WHITE;
+    Color lighttext = Color.GHOSTWHITE;
+    Color starcolor = Color.GHOSTWHITE;
 
     String darkback = "black";
     String lightback = "cornflowerblue";
     String borderc = "magenta";
 
-    String sfont = "Modern No.20";
+    String sfont = "Modern No. 20";
 
 
 
@@ -158,14 +158,6 @@ public class Controller implements Initializable {
     int time;
 
     int cselected;
-
-
-
-
-
-
-
-
     Weather[] wList;
     Weather wSelected;
 
@@ -186,19 +178,18 @@ public class Controller implements Initializable {
 
 
 
-// Build zipcode list, and set default zip
+/*
+    Build zipcode list, and set default zip
+    Set default selected
+    Begin star creation
+    Begin cloud creation
+
+ */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-  //      System.out.println("Building...");
-
         StarGenerator();
-
-
-
-       // daylist = new Text[8];
-       // daylist[1].setText("Check");
 
         wList = new Weather[15];
 
@@ -215,19 +206,12 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
-        mainpane.widthProperty().addListener((obs, oldVal, newVal) -> {
-            setVisibleCoords();
-        });
-
-        mainpane.heightProperty().addListener((obs, oldVal, newVal) -> {
-            setVisibleCoords();
-        });
-
 
         cloudpane.toBack();
         starpane.toBack();
 
         cselected = 0;
+
         borderSelected(0);
         setAllFonts();
 
@@ -301,7 +285,7 @@ public class Controller implements Initializable {
 
     }
 
-
+    // A helper method that deducts reason zipcode failed and activates an alert based on it
     public void BadZip(String reason){
 
 
@@ -724,7 +708,9 @@ public class Controller implements Initializable {
 
     }
 
+    // Changing colors to appropriate dark setting
     public void setDark(){
+
         mainpane.setStyle("-fx-background-color:" + darkback);
         setAllBorder("white");
 
@@ -755,9 +741,11 @@ public class Controller implements Initializable {
 
         enterziptext.setFill(lighttext);
         cloudpane.setVisible(false);
+        mainpane.setStyle("-fx-background-color:" + darkback);
         starpane.setVisible(true);
     }
 
+    // Changing colors to match the light mode
     public void setLight(){
         mainpane.setStyle("-fx-background-color:" + lightback);
         setAllBorder(darkback);
@@ -785,13 +773,14 @@ public class Controller implements Initializable {
 
         fdate.setFill(darktext);
         enterziptext.setFill(darktext);
+        mainpane.setStyle("-fx-background-color:" + lightback);
         cloudpane.setVisible(true);
         starpane.setVisible(false);
     }
 
 
 
-
+    // being cloud and star animations
     public void BackgroundAnimation(){
 
         Runnable r = new Runnable() {
@@ -850,6 +839,7 @@ public class Controller implements Initializable {
     }
 
 
+    // choosing a random star that increases it's size for a short moment before return to standard size
 
     public void Twinkle() throws InterruptedException {
 
@@ -869,6 +859,7 @@ public class Controller implements Initializable {
 
     }
 
+    // Places circles from a list in specifc locations based on parameters
     public void StarGenerator(){
 
         Random rand = new Random();
@@ -892,25 +883,27 @@ public class Controller implements Initializable {
 
             boolean visible = true;
 
-
-
+            // Forcast text
             if (x >= 50 && x <= 595) {
-                if (y >= 290) {
+                if (y >= 305) {
                     visible = false;
                 }
             }
-            if (x >= 70 && x <= 225) {
-                if (y >= 215 && y <= 240) {
+            // Day text
+            if (x >= 40 && x <= 225) {
+                if (y >= 215 && y <= 245) {
                     visible = false;
                 }
             }
 
-            if (x >= 230 && x <= 415) {
+            // Location
+            if (x >= 230 && x <= 430) {
                 if (y >= 60 && y <= 90) {
                     visible = false;
                 }
             }
 
+            // temp
             if (x >= 425 && x <= 515) {
                 if (y >= 215 && y <= 240) {
                     visible = false;
@@ -933,14 +926,108 @@ public class Controller implements Initializable {
 
 
 
-    @FXML
-    private void Mousecoords(MouseEvent mouseEvent){
-        double x = mouseEvent.getX();
-        double y = mouseEvent.getY();
 
-        System.out.println("moose");
-        System.out.println(x + "," + y);
+    // reset all borders to specific colors
+
+    public void setAllBorder(String color){
+
+        mainpane.getCenter().setStyle("-fx-border-color:" + color);
+        mainpane.getTop().setStyle("-fx-border-color:" + color);
+        weekbox.setStyle("-fx-border-color:" + color);
+
+        for(int i = 0; i < 7; i++){
+
+            weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
+            if(i == cselected){
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: " + borderc);
+            }
+
+        }
     }
+
+
+
+    // turns the pane clicked border into the specific color
+
+    public void borderSelected(int paneNum) {
+        //    For reseting the border whenever it is clicked so that there are no duplicate selected panel
+        for(int i = 0; i < 7; i++){
+            //      This will check the condition whether the border should stay white or black
+            //    depending on the status of switchtime
+            if(switchtime.getText().equals("Night Mode") == true){
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: black");
+            } else{
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(i).setStyle("-fx-border-color: white");
+            }
+        }
+        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: " + borderc +"; -fx-border-width:1");
+
+    }
+
+
+    // easily setting all fonts based on specific choice
+
+    public void setAllFonts(){
+
+
+        Font font = Font.font(sfont, 30);
+
+        sLocation.setFont(font);
+
+        font = Font.font(sfont, 25);
+        sDay.setFont(font);
+        sTemp.setFont(font);
+        sForecast.setFont(font);
+
+        font = Font.font(sfont, 30);
+        fdate.setFont(font);
+
+        font = Font.font(sfont, 16);
+        enterziptext.setFont(font);
+        ziptextfield.setFont(font);
+        switchtime.setFont(font);
+
+        font = Font.font(sfont, 12);
+        day1.setFont(font);
+        day2.setFont(font);
+        day3.setFont(font);
+        day4.setFont(font);
+        day5.setFont(font);
+        day6.setFont(font);
+        day7.setFont(font);
+
+        temp1.setFont(font);
+        temp2.setFont(font);
+        temp3.setFont(font);
+        temp4.setFont(font);
+        temp5.setFont(font);
+        temp6.setFont(font);
+        temp7.setFont(font);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // getters and setters
+
+
+
 
     public Weather[] getwList() {
         return wList;
@@ -983,160 +1070,7 @@ public class Controller implements Initializable {
     }
 
 
-    public void setAllBorder(String color){
 
-        mainpane.getCenter().setStyle("-fx-border-color:" + color);
-        mainpane.getTop().setStyle("-fx-border-color:" + color);
-        weekbox.setStyle("-fx-border-color:" + color);
-
-        for(int i = 0; i < 7; i++){
-
-            weekbox.getChildren().get(i).setStyle("-fx-border-color:" + color);
-            if(i == cselected){
-                weekbox.getChildren().get(i).setStyle("-fx-border-color: " + borderc);
-            }
-
-        }
-    }
-
-    @FXML
-    private void setVisibleCoords(){
-
-
-
-        double x = mainpane.getWidth();
-        double y = mainpane.getHeight();
-
-     //   mainpane.getCenter().setStyle("-fx-border-style: none none none none");
-      //  sForecast.setVisible(false);
-       // weekbox.setVisible(false);
-      //  ziptextfield.setVisible(false);
-      //  enterziptext.setVisible(false);
-
-        starpane.setOpacity((x/1600) + (y/970));
-     //   System.out.println(starpane.getOpacity());
-
-
-
-
-        if (x <= 690 || y <= 470){
-            mainpane.getCenter().setStyle("-fx-border-style: none none none none");
-            weekbox.setVisible(false);
-
-
-        } else {
-            mainpane.getCenter().setStyle("-fx-border-style: solid solid solid solid");
-            weekbox.setVisible(true);
-
-        }
-
-        if (x <= 690) {
-            ziptextfield.setVisible(false);
-            enterziptext.setVisible(false);
-            switchtime.setVisible(false);
-        } else{
-            ziptextfield.setVisible(true);
-            enterziptext.setVisible(true);
-            switchtime.setVisible(true);
-        }
-
-        if(x <= 685 || y <= 450) {
-            sForecast.setVisible(false);
-        } else{
-            sForecast.setVisible(true);
-        }
-
-        if(x <= 225){
-            fdate.setVisible(false);
-        } else {
-            fdate.setVisible(true);
-        }
-
-
-        if(x <= 610) {
-            sTemp.setVisible(false);
-           sDay.setVisible(false);
-        } else {
-            sTemp.setVisible(true);
-            sDay.setVisible(true);
-        }
-
-        if(y <= 250){
-            sLocation.setVisible(false);
-            mainpane.getTop().setVisible(false);
-
-        } else{
-            sLocation.setVisible(true);
-            mainpane.getTop().setVisible(true);
-
-        }
-
-
-
-        System.out.println(x + "," + y);
-
-
-    }
-
-
-    public void borderSelected(int paneNum) {
-     //    For reseting the border whenever it is clicked so that there are no duplicate selected panel
-        for(int i = 0; i < 7; i++){
-       //      This will check the condition whether the border should stay white or black
-         //    depending on the status of switchtime
-            if(switchtime.getText().equals("Set Nighttime") == true){
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
-                weekbox.getChildren().get(i).setStyle("-fx-border-color: black");
-            } else{
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
-                weekbox.getChildren().get(i).setStyle("-fx-border-color: white");
-            }
-       }
-        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: " + borderc +"; -fx-border-width:1");
-
-    }
-
-
-
-    public void setAllFonts(){
-
-
-        Font font = Font.font(sfont, 30);
-
-        sLocation.setFont(font);
-
-        font = Font.font(sfont, 25);
-        sDay.setFont(font);
-        sTemp.setFont(font);
-        sForecast.setFont(font);
-
-        font = Font.font(sfont, 30);
-        fdate.setFont(font);
-
-        font = Font.font(sfont, 16);
-        enterziptext.setFont(font);
-        ziptextfield.setFont(font);
-        switchtime.setFont(font);
-
-        font = Font.font(sfont, 12);
-        day1.setFont(font);
-        day2.setFont(font);
-        day3.setFont(font);
-        day4.setFont(font);
-        day5.setFont(font);
-        day6.setFont(font);
-        day7.setFont(font);
-
-        temp1.setFont(font);
-        temp2.setFont(font);
-        temp3.setFont(font);
-        temp4.setFont(font);
-        temp5.setFont(font);
-        temp6.setFont(font);
-        temp7.setFont(font);
-
-
-    }
 
 
 

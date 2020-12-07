@@ -1,10 +1,12 @@
 package sample;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 
-import java.util.EventListener;
+
+// An instance of this class holds a list of ellipses
+// placed in a specifc distance away from each other to create a
+// cloud shaped object that moves across the screen
 
 public class Cloud {
 
@@ -99,6 +101,8 @@ public class Cloud {
     }
 
 
+    // Grabbing the previous location of the circles and moving them from left to right
+    // Wrapping around the pane when it reaches a specific point
     public void Move(){
 
         for(int i = 0; i < clist.length; i++){
@@ -143,18 +147,9 @@ public class Cloud {
 
     }
 
-
-
-
     public Ellipse[] getList(){
         return clist;
     }
-
-
-
-
-
-
 
 
 }

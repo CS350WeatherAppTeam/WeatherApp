@@ -9,6 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+//  Holds all the zipcode data from the us-zip-code-latitude-longitude.txt
+// and stores them in a specific order for ease of access
+
 public class ZipcodeList {
 
 
@@ -145,6 +148,7 @@ public class ZipcodeList {
     }
 
 
+    // Standard max heapify helper method
     public void MaxHeapify(int key, int i, int heapsize){
 
         int l = i * 2;
@@ -221,6 +225,7 @@ public class ZipcodeList {
 
     }
 
+    //prints out list for testing methods
     public String toString(){
 
         String s = new String();

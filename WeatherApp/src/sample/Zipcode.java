@@ -1,5 +1,6 @@
 package sample;
 
+//Holds the needed zipcode variables
 public class Zipcode {
 
     String Zip;
