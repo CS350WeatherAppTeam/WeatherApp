@@ -6,4 +6,4 @@ A basic computer application that uses the National Weather API to show the curr
 
 A JavaFX project made with IntelliJ for a college assignment based around human computer interactions. 
 
-The main files are stored in the non "WeatherMap-main" locations
+The main files are stored in the non "WeatherApp-main" locations
