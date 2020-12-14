@@ -60,6 +60,8 @@ public class Controller implements Initializable {
     @FXML
     private VBox weekbox;
 
+    @FXML
+    private GridPane toppane;
 
 
     @FXML
@@ -178,6 +180,8 @@ public class Controller implements Initializable {
 
 
 
+
+
 /*
     Build zipcode list, and set default zip
     Set default selected
@@ -205,6 +209,10 @@ public class Controller implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+
 
 
         cloudpane.toBack();
@@ -804,19 +812,45 @@ public class Controller implements Initializable {
             @Override
             public void run() {
 
-                Cloud c = new Cloud();
 
-                for(int i = 0; i < c.getList().length; i++) {
-                    cloudpane.getChildren().add(c.getList()[i]);
-                }
+                Sun s = new Sun();
+
+                cloudpane.getChildren().add(s.getSun());
+
+           //     Cloud c = new Cloud();
+
+             //   for(int i = 0; i < c.getList().length; i++) {
+               //     cloudpane.getChildren().add(c.getList()[i]);
+               // }
+
+                double g = 1.0;
+
+                boolean change = true;
 
                 while(!Thread.currentThread().isInterrupted()){
                     try {
-                        Thread.sleep(50);
+                        s.setColor(1.0,g,0.0);
+                        Thread.sleep(200);
+
+
+                        if(change == true) {
+                            g -= .01;
+                        } else if (change == false) {
+                            g += .01;
+                        }
+
+                        if(g > .99){
+                            change = true;
+                        } else if(g < .6){
+
+                            change = false;
+                        }
+
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    c.Move();
+                   // c.Move();
                 }
 
 
@@ -955,14 +989,14 @@ public class Controller implements Initializable {
             //      This will check the condition whether the border should stay white or black
             //    depending on the status of switchtime
             if(switchtime.getText().equals("Night Mode") == true){
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: .5");
                 weekbox.getChildren().get(i).setStyle("-fx-border-color: black");
             } else{
-                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: 1");
+                weekbox.getChildren().get(paneNum).setStyle("-fx-border-width: .5");
                 weekbox.getChildren().get(i).setStyle("-fx-border-color: white");
             }
         }
-        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: " + borderc +"; -fx-border-width:1");
+        weekbox.getChildren().get(paneNum).setStyle("-fx-border-color: " + borderc +"; -fx-border-width:.5");
 
     }
 

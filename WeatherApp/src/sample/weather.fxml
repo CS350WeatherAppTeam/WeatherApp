@@ -16,7 +16,7 @@
 
 <BorderPane fx:id="mainpane" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <top>
-        <GridPane minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="300.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
+        <GridPane fx:id="toppane" minHeight="0.0" minWidth="0.0" prefHeight="42.0" prefWidth="300.0" style="-fx-border-color: black; -fx-border-width: 0; -fx-border-style: solid;" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="386.0" minWidth="10.0" prefWidth="120.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="521.0" minWidth="10.0" prefWidth="447.0" />
@@ -65,9 +65,9 @@
         </GridPane>
     </top>
     <right>
-        <VBox fx:id="weekbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="150.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
+        <VBox fx:id="weekbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="150.0" style="-fx-border-color: black; -fx-border-width: 0; -fx-border-style: solid;" BorderPane.alignment="CENTER">
             <children>
-                <GridPane minWidth="0.0" onMouseClicked="#paneclick1" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane minWidth="0.0" onMouseClicked="#paneclick1" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -90,7 +90,7 @@
                         <ImageView fx:id="pic1" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick2" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick2" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -107,7 +107,7 @@
                         <ImageView fx:id="pic2" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick3" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick3" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -124,7 +124,7 @@
                         <ImageView fx:id="pic3" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick4" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick4" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -141,7 +141,7 @@
                         <ImageView fx:id="pic4" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick5" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick5" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -158,7 +158,7 @@
                         <ImageView fx:id="pic5" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick6" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick6" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -175,7 +175,7 @@
                         <ImageView fx:id="pic6" fitHeight="40.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BASELINE" />
                     </children>
                 </GridPane>
-                <GridPane onMouseClicked="#paneclick7" style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;">
+                <GridPane onMouseClicked="#paneclick7" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -198,7 +198,7 @@
     <bottom>
     </bottom>
     <center>
-        <GridPane minHeight="100.0" minWidth="150.0" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" BorderPane.alignment="CENTER">
+        <GridPane minHeight="100.0" minWidth="150.0" style="-fx-border-color: black; -fx-border-width: .5; -fx-border-style: solid;" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
